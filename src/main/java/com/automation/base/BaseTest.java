@@ -17,7 +17,7 @@ public class BaseTest {
     public void setUp() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
-//        options.addArguments("headless", "--window-size=1920,1080");
+        options.addArguments("headless", "--window-size=1920,1080");
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));

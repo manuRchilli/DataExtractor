@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 import com.automation.base.BaseTest;
 import com.automation.base.ConfigReader;
-import com.automation.pages.neww.CategoryPage;
+import com.automation.pages.CareerAreasPage;
 import com.automation.utils.CSVLogger;
 
 public class LoginTest extends BaseTest {
@@ -15,10 +15,10 @@ public class LoginTest extends BaseTest {
     @Test
     public void testSuccessfulLogin() {
         csvLogger = new CSVLogger();
-        CategoryPage categoryPage = new CategoryPage(driver, csvLogger);
+        CareerAreasPage careerAreasPage = new CareerAreasPage(driver, csvLogger);
 
         driver.get(ConfigReader.getProperty("baseUrl"));
-        categoryPage.clickAllCategoryButtonsAndSubCategories();
+        careerAreasPage.clickAllCareerAreas();
     }
 
     @AfterTest
@@ -26,9 +26,6 @@ public class LoginTest extends BaseTest {
         if (csvLogger != null) {
             csvLogger.close();
             System.out.println("CSVLogger closed in tearDown");
-        }
-        if (driver != null) {
-            driver.quit();
         }
     }
 }

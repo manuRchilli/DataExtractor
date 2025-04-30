@@ -57,7 +57,7 @@ public class RelatedSkillsPage {
             clickRelatedOccupationsAndFetch(relatedOccupations);
 
             // Log the data to CSV
-            csvLogger.writeData(skillsCategory, subCategory, skill, relatedSkills, relatedTitles, relatedOccupations);
+//            csvLogger.writeData(skillsCategory, subCategory, skill, relatedSkills, relatedTitles, relatedOccupations);
         } catch (Exception e) {
             System.err.println("Error fetching related skills for " + skill + ": " + e.getMessage());
         }

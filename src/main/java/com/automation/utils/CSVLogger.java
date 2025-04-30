@@ -31,8 +31,8 @@ public class CSVLogger {
             // Write headers only if the file is new
             if (!fileExists) {
                 String[] header = {
-                        "Skills Categories", "Sub-Categories", "Skills",
-                        "Related Skills", "Related Titles", "Related Occupations"
+                        "Career Areas", "Occupation Group", "Occupations",
+                        "Specialized Occupations", "Skills", "Titles", "Related Occupations"
                 };
                 csvWriter.writeNext(header);
                 csvWriter.flush();
@@ -44,19 +44,26 @@ public class CSVLogger {
         }
     }
 
-    public synchronized void writeData(String skillsCategory, String subCategory, String skill,
-                                       List<String> relatedSkills, List<String> relatedTitles,
-                                       List<String> relatedOccupations) {
+    public synchronized void writeData(String careerArea, String occupationGroup, String occupation,
+                                       String specializedOccupation, List<String> skills,
+                                       List<String> titles, List<String> relatedOccupations) {
         try {
-            String formattedSkillsCategory = "\"" + skillsCategory + "\"";
-            String relatedSkillsStr = relatedSkills.isEmpty() ? "" : String.join(" | ", relatedSkills);
-            String relatedTitlesStr = relatedTitles.isEmpty() ? "" : String.join(" | ", relatedTitles);
+            // Format fields, ensuring proper quoting
+            String formattedCareerArea = "\"" + (careerArea != null ? careerArea.replace("\"", "\"\"") : "") + "\"";
+            String formattedOccupationGroup = "\"" + (occupationGroup != null ? occupationGroup.replace("\"", "\"\"") : "") + "\"";
+            String formattedOccupation = "\"" + (occupation != null ? occupation.replace("\"", "\"\"") : "") + "\"";
+            String formattedSpecializedOccupation = "\"" + (specializedOccupation != null ? specializedOccupation.replace("\"", "\"\"") : "") + "\"";
+            String skillsStr = skills.isEmpty() ? "" : String.join(" | ", skills);
+            String titlesStr = titles.isEmpty() ? "" : String.join(" | ", titles);
             String relatedOccupationsStr = relatedOccupations.isEmpty() ? "" : String.join(" | ", relatedOccupations);
 
-            String[] rowData = {formattedSkillsCategory, subCategory, skill, relatedSkillsStr, relatedTitlesStr, relatedOccupationsStr};
+            String[] rowData = {
+                    formattedCareerArea, formattedOccupationGroup, formattedOccupation,
+                    formattedSpecializedOccupation, skillsStr, titlesStr, relatedOccupationsStr
+            };
             csvWriter.writeNext(rowData, false);
             csvWriter.flush();
-            System.out.println("Wrote CSV row for skill: " + skill);
+            System.out.println("Wrote CSV row for specialized occupation: " + specializedOccupation);
         } catch (Exception e) {
             System.err.println("Error writing to CSV: " + e.getMessage());
             e.printStackTrace();

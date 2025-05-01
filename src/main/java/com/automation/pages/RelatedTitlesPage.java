@@ -30,9 +30,9 @@ public class RelatedTitlesPage {
     public List<String> getRelatedTitleNames() {
         List<String> titleNames = new ArrayList<>();
         try {
-            commonUtils.scrollToBottom();
+            commonUtils.scrollToTop();
             WebElement relatedTitlesTab = driver.findElement(
-                    By.xpath("//button[@id='Related Titles']"));
+                    By.xpath("//*[@id=\"Related Titles\"]"));
             commonUtils.scrollToElement(relatedTitlesTab);
             wait.until(ExpectedConditions.elementToBeClickable(relatedTitlesTab));
             relatedTitlesTab.click();
